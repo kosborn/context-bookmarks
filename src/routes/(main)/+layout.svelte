@@ -1,12 +1,13 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import '../../app.pcss';
+	import { dev } from '$app/environment';
 
-	import TagCloud from '@/nav/TagCloud.svelte';
-	import SearchForm from '$lib/nav/SearchForm.svelte';
-	import BookmarkCompact from '$lib/nav/BookmarkCompact.svelte';
-	import Auth from '@/Auth.svelte';
-	import NewBookmark from '@/nav/NewBookmark.svelte';
+	import TagCloud from '@/Nav/TagCloud.svelte';
+	import SearchForm from '@/Nav/SearchForm.svelte';
+	import BookmarkCompact from '@/Nav/BookmarkCompact.svelte';
+	import Auth from '@/Auth/Auth.svelte';
+	import NewBookmark from '@/Nav/NewBookmark.svelte';
 
 	import { Button } from '@/components/ui/button';
 

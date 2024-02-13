@@ -1,5 +1,5 @@
 <script>
-	import BookmarkCard from '@/bookmark/Card.svelte';
+	import BookmarkCard from '@/Bookmark/Card.svelte';
 
 	import { getContext, onMount } from 'svelte';
 </script>
