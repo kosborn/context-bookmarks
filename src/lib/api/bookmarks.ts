@@ -3,17 +3,7 @@ import { OpenAIStream, StreamingTextResponse } from 'ai';
 
 import * as env from '$env/dynamic/private';
 
-let OPENAI_API_KEY;
-
-let platform;
-
-if (platform) {
-	OPENAI_API_KEY = platform.env.OPENAI_API_KEY;
-} else if (process) {
-	OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-} else {
-	OPENAI_API_KEY = env.OPENAI_API_KEY;
-}
+const OPENAI_API_KEY = env.env.OPENAI_API_KEY;
 
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
@@ -23,7 +13,7 @@ export const llmSummarize = async (bookmark) => {
 			{ role: 'system', content: prompt },
 			{ role: 'user', content: bookmark }
 		],
-		model: 'gpt-3.5-turbo',
+		model: 'gpt-4-0125-preview',
 		stream: true
 	});
 
