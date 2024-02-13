@@ -189,18 +189,15 @@ Category:
 			</Dialog.Footer>
 		</div>
 		<div class:hidden={state === 'IDLE'}>
-			<Progress
-				value={PROGRESS[state]}
-				class="drop-shadow-md {state === 'ERROR' ? 'animate-bounce bg-red-500' : ''}"
-			/>
+			<Progress value={PROGRESS[state]} {state} class="drop-shadow-md" />
 			{#if state === 'ERROR'}
 				{ERROR_REASON}
 			{/if}
 		</div>
 		<div class:hidden={state !== 'SUCCESS' && state !== 'OPENAI'}>
-			<div class="float-right">
+			<div class="float-right gap-4">
 				<Dialog.Close>
-					<Button>Save</Button>
+					<Button class="bg-green-500">Save</Button>
 				</Dialog.Close>
 				<Dialog.Close>
 					<Button variant="destructive">Close</Button>

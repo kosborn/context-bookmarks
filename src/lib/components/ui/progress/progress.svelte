@@ -4,6 +4,8 @@
 
 	type $$Props = ProgressPrimitive.Props;
 
+	export let state = 'IDLE';
+
 	let className: $$Props['class'] = undefined;
 	export let max: $$Props['max'] = 100;
 	export let value: $$Props['value'] = undefined;
@@ -15,7 +17,17 @@
 	{...$$restProps}
 >
 	<div
-		class="h-full w-full flex-1 bg-green-500 transition-all"
+		data-state={state}
+		class="progress-bar h-full w-full flex-1 transition-all"
 		style={`transform: translateX(-${100 - (100 * (value ?? 0)) / (max ?? 1)}%)`}
 	/>
 </ProgressPrimitive.Root>
+
+<style>
+	.progress-bar[state='ERROR'] {
+		background-color: bg-red-500;
+	}
+	.progress-bar[state='SUCCESS'] {
+		background-color: bg-green-500;
+	}
+</style>
