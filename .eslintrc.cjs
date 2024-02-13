@@ -8,7 +8,7 @@ module.exports = {
 		'prettier'
 	],
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint'],
+	plugins: ['@typescript-eslint', 'prettier'],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
@@ -18,6 +18,9 @@ module.exports = {
 		browser: true,
 		es2017: true,
 		node: true
+	},
+	rules: {
+		'prettier/prettier': 2
 	},
 	overrides: [
 		{

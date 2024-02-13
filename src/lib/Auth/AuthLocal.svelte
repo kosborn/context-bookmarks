@@ -7,7 +7,7 @@
 
 	let resp;
 	onMount((e) => {
-		fetch(`/api/register`).then((r) => {
+		fetch(`/api/auth/register`).then((r) => {
 			r.json().then((a) => {
 				startAuthentication(a).then((authResults) => {
 					console.log(authResults);

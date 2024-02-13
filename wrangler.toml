@@ -1,0 +1,5 @@
+name = "context-bookmark"
+
+compatibility_flags = ["nodejs_compat"]
+
+browser = { binding = "MYBROWSER" }

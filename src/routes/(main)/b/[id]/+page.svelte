@@ -4,7 +4,7 @@
 	import { AlertCircle } from 'lucide-svelte';
 	import * as Alert from '$lib/components/ui/alert';
 
-	import BookmarkCard from '@/bookmark/Card.svelte';
+	import BookmarkCard from '@/Bookmark/Card.svelte';
 
 	export let data;
 	let resolvedBookmark = data.bookmark;

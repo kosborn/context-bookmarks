@@ -11,5 +11,7 @@
 				"parser": "svelte"
 			}
 		}
-	]
+	],
+	"semi": true
+
 }
