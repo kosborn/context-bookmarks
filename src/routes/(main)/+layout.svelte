@@ -3,11 +3,11 @@
 	import '../../app.pcss';
 	import { dev } from '$app/environment';
 
-	import TagCloud from '@/Nav/TagCloud.svelte';
-	import SearchForm from '@/Nav/SearchForm.svelte';
-	import BookmarkCompact from '@/Nav/BookmarkCompact.svelte';
+	import TagCloud from '@/nav/TagCloud.svelte';
+	import SearchForm from '@/nav/SearchForm.svelte';
+	import BookmarkCompact from '@/nav/BookmarkCompact.svelte';
 	import Auth from '@/Auth/Auth.svelte';
-	import NewBookmark from '@/Nav/NewBookmark.svelte';
+	import NewBookmark from '@/nav/NewBookmark.svelte';
 
 	import { Button } from '@/components/ui/button';
 
