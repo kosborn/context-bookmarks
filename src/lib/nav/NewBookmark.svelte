@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { PlusCircle } from 'lucide-svelte';
 	import { writable } from 'svelte/store';
 
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Input } from '$lib/components/ui/input';
-	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import SvelteMarkdown from 'svelte-markdown';
 
 	import 'github-markdown-css/github-markdown.css';
 
-	import { OpenAIStream } from 'ai';
+	import { FAUNA } from '$lib/index';
+	import { fql } from 'fauna';
 
 	let md = `"### Summary:
 This page provides a list of updated FIDO2/WebAuthn libraries categorized by programming languages, including Rust, TypeScript, Java, .NET, Go, Python, and Ruby.
@@ -94,6 +93,7 @@ Category:
 	let dialog;
 	let state: USER_INPUT = 'IDLE';
 	let results = writable('');
+	let bmObject = {};
 
 	const parser = new DOMParser();
 	const turndownService = new TurndownService();
@@ -126,6 +126,11 @@ Category:
 			article['markdown'] = md;
 
 			let tokenLength = tokenizer.encode(md).length;
+			bmObject = {
+				...article,
+				url: urlInput,
+				tokenInput: tokenLength
+			};
 
 			state = 'STREAMING';
 
@@ -160,6 +165,22 @@ Category:
 			throw new Error(`${error}`);
 		}
 	}
+
+	const saveBookmark = async () => {
+		console.log('Saving bookmark');
+		let savedBookmark = {
+			...bmObject,
+			results: $results
+		};
+		delete savedBookmark['content'];
+		$FAUNA
+			.query(fql`createBookmark(results)`, {
+				arguments: { results: savedBookmark }
+			})
+			.then((ret) => {
+				console.log(ret);
+			});
+	};
 </script>
 
 <Dialog.Root>
@@ -197,7 +218,9 @@ Category:
 		<div class:hidden={state !== 'SUCCESS' && state !== 'OPENAI'}>
 			<div class="float-right gap-4">
 				<Dialog.Close>
-					<Button class="bg-green-500">Save</Button>
+					<Button class="bg-green-500" on:click={saveBookmark} disabled={state != 'SUCCESS'}
+						>Save</Button
+					>
 				</Dialog.Close>
 				<Dialog.Close>
 					<Button variant="destructive">Close</Button>

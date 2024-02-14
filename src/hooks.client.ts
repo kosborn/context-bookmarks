@@ -1,4 +1,4 @@
-import { SESSION, USER } from '$lib/index';
+import { SESSION, USER, FAUNA, setFaunaClient, getSession } from '$lib/index';
 import { get } from 'svelte/store';
 import { dev } from '$app/environment';
 
@@ -15,12 +15,10 @@ if (dev) {
 			USER.set(false);
 		} else {
 			USER.set(user);
+
+			getSession(document.cookie)
+				.then((session) => setFaunaClient(session))
+				.then((client) => FAUNA.set(client));
 		}
 	});
-}
-
-function getCookie(name) {
-	const value = `; ${document.cookie}`;
-	const parts = value.split(`; ${name}=`);
-	if (parts.length === 2) return parts.pop().split(';').shift();
 }

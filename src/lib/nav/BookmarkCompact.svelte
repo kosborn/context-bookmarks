@@ -4,14 +4,15 @@
 	import { PUBLIC_READ_ALL } from '$env/static/public';
 	import { writable } from 'svelte/store';
 
-	import { Client, fql, FaunaError } from 'fauna';
-
-	let client;
-	client = new Client({ secret: PUBLIC_READ_ALL });
+	import { fql } from 'fauna';
+	import { FAUNA } from '$lib/index';
+	import { onMount } from 'svelte';
 
 	let bookmarkList = [];
-	client.query(fql`bookmarks.firstWhere(a=>true)`).then((ret) => {
-		bookmarkList = [ret.data, ...bookmarkList];
+
+	$FAUNA.query(fql`bookmarks.all()`, { format: 'simple' }).then((ret) => {
+		bookmarkList = [...ret.data.data, ...bookmarkList];
+		bookmarkList = bookmarkList.filter((a) => a);
 	});
 </script>
 
@@ -21,7 +22,7 @@
 		<span class="sr-only">Order by date</span>
 	</Button>
 	<Button class="justify-start gap-2" size="sm" variant="secondary">
-		<Star class="bg- h-4 w-4" />
+		<Star class="h-4 w-4" />
 		Favorites
 	</Button>
 </div>

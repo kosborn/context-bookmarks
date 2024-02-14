@@ -1,21 +1,18 @@
 import type { PageLoad } from './$types';
-import { SESSION, USER } from '$lib/index';
-import { PUBLIC_READ_ALL } from '$env/static/public';
+import { FAUNA } from '$lib/index';
+import { get } from 'svelte/store';
 
-import { Client, fql, FaunaError, NullDocument } from 'fauna';
-console.log();
+import { fql, NullDocument } from 'fauna';
 
 export const load: PageLoad = ({ params }) => {
 	const bookmarkId = params.id;
-	const client = new Client({ secret: PUBLIC_READ_ALL });
 
-	const bookmarkPromise = client
+	const bookmarkPromise = get(FAUNA)
 		.query(fql`bookmarks.byId(id)`, { arguments: { id: bookmarkId } })
 		.then((ret) => {
 			if (ret.data instanceof NullDocument) {
 				throw new Error(`Bookmark ${bookmarkId} not found`);
 			}
-			console.log(ret.data);
 			return ret.data;
 		})
 		.catch((error) => {

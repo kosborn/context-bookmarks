@@ -3,9 +3,11 @@ import type { RequestHandler } from './$types';
 
 import { writable } from 'svelte/store';
 import * as jose from 'jose';
+import { Client, fql, FaunaError } from 'fauna';
 
 export const USER = writable();
 export const SESSION = writable();
+export let FAUNA = writable();
 
 export const JWKS = jose.createLocalJWKSet({
 	keys: [
@@ -24,9 +26,39 @@ export const jwtVerify = async (jwt) => {
 	return await jose.jwtVerify(jwt, JWKS);
 };
 
-export const authVerify = async (cookies: RequestHandler.cookies) => {
+const parseCookies = (cookie: string) => {
+	return Object.fromEntries(
+		cookie.split(';').map((c) => {
+			const [key, ...v] = c.split('=');
+			return [key.trim(), v.join('=')];
+		})
+	);
+};
+
+export const getSession = async (cookies: RequestHandler.cookies | string) => {
+	let cbo_session;
+	if (typeof cookies === 'string') {
+		cookies = parseCookies(cookies);
+		cbo_session = cookies['cbo_short_session'];
+	} else {
+		cbo_session = cookies.get('cbo_short_session');
+	}
+
+	if (!cbo_session) {
+		return null;
+	}
+	return cbo_session;
+};
+
+export const authVerify = async (cookies: RequestHandler.cookies | string) => {
+	let cbo_session;
+	if (typeof cookies === 'string') {
+		cookies = parseCookies(cookies);
+		cbo_session = cookies['cbo_short_session'];
+	} else {
+		cbo_session = cookies.get('cbo_short_session');
+	}
 	try {
-		const cbo_session = cookies.get('cbo_short_session');
 		if (!cbo_session) {
 			throw new Error('No session');
 		}
@@ -34,4 +66,13 @@ export const authVerify = async (cookies: RequestHandler.cookies) => {
 	} catch (e) {
 		throw new Error(e);
 	}
+};
+
+export const getFaunaClient = (secret: string) => {
+	return;
+};
+
+export const setFaunaClient = async (jwt) => {
+	const client = new Client({ secret: jwt, keepalive: false });
+	return client;
 };

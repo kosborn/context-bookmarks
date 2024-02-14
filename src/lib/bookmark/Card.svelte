@@ -14,6 +14,9 @@
 
 	import Highlight from 'svelte-highlight';
 	import javascript from 'svelte-highlight/languages/javascript';
+	import SvelteMarkdown from 'svelte-markdown';
+
+	import 'github-markdown-css/github-markdown.css';
 
 	export let bookmark;
 </script>
@@ -60,6 +63,10 @@
 		</div>
 	</CardHeader>
 	<CardContent>
+		<div class="markdown-body h-auto w-full rounded-sm border-gray-700 p-5">
+			<SvelteMarkdown source={bookmark.results} />
+		</div>
+
 		{#if bookmark.summary}
 			<div>
 				<h3 class="text-lg font-bold">Summary</h3>
