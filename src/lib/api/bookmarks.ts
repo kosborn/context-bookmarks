@@ -26,9 +26,8 @@ const prompt = `
 
     ### Summary:
     - Give a simple two to three sentence description.
-    ### Requirements/Instructions
-    - Include any system or software requirements
-    - Include some of the example installation blocks
+    ### Requirements or Instructions
+    - Include any system or software requirements, or any sample code to demonstrate the use
     ### Details
     - Provide a more detailed explanation of the content as bullet points
     - Include up to a 3 paragraph summary.

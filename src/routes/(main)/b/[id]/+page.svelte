@@ -4,17 +4,25 @@
 	import { AlertCircle } from 'lucide-svelte';
 	import * as Alert from '$lib/components/ui/alert';
 
-	import BookmarkCard from '@/Bookmark/Card.svelte';
+	import BookmarkCard from '@/bookmark/Card.svelte';
+	import { onMount } from 'svelte';
+
+	import { FAUNA, USER, faunaReady, setFaunaClient, getSession } from '$lib/index';
+	import { fql, NullDocument } from 'fauna';
+	import { PUBLIC_CORBADO_PROJECT_ID } from '$env/static/public';
+	import Corbado from '@corbado/webcomponent';
 
 	export let data;
-	let resolvedBookmark = data.bookmark;
+
+	// let bookmarkId = ;
+	let previousBookmarkId;
 </script>
 
 {#await data.bookmark}
 	<p>Loading...</p>
-{:then resolvedBookmark}
-	<div transition:fade>
-		<BookmarkCard bookmark={resolvedBookmark} />
+{:then bookmark}
+	<div in:fade>
+		<BookmarkCard {bookmark} />
 	</div>
 {:catch error}
 	<Alert.Root variant="destructive">

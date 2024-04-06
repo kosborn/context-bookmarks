@@ -226,7 +226,7 @@ Category:
 					<Button variant="destructive">Close</Button>
 				</Dialog.Close>
 			</div>
-			<div class="markdown-body h-auto w-full rounded-sm border-gray-700 bg-gray-200 p-5">
+			<div class="markdown-body h-auto w-full rounded-sm border-gray-700 p-5">
 				<SvelteMarkdown source={$results} />
 			</div>
 		</div>

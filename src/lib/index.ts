@@ -1,78 +1,90 @@
 // place files you want to import through the `$lib` alias in this folder.
-import type { RequestHandler } from './$types';
+import { writable, get } from 'svelte/store';
+import { Client } from 'fauna';
+import { dev } from '$app/environment';
+import { getSession } from '$lib/jwt';
+import { PUBLIC_CORBADO_PROJECT_ID } from '$env/static/public';
+export * from '$lib/jwt';
+import { fql } from 'fauna';
 
-import { writable } from 'svelte/store';
-import * as jose from 'jose';
-import { Client, fql, FaunaError } from 'fauna';
+type UserSession = {
+	email?: string;
+	name?: string;
+	session?: string | boolean;
+};
 
-export const USER = writable();
-export const SESSION = writable();
+export const USER = writable<UserSession>({ session: false });
+export let SESSION = writable();
+
 export let FAUNA = writable();
+export let faunaReady = writable();
 
-export const JWKS = jose.createLocalJWKSet({
-	keys: [
-		{
-			alg: 'RS256',
-			e: 'AQAB',
-			kid: 'pki-6009621403329666133',
-			kty: 'RSA',
-			n: 'r8MTlck5bV0vhy8vjIU8vZLPMtt-gYZy125nal-dzVE-Fm_cWVqsEh-4Lej1YoB24Gep8DUwhR8oNCX26N63wLL9VIke8xUCK05VooBg8UzWYyM3-RKi7mfk1xJREgoKSJJcJRVmQL5aLxQjRibtkQHiGbohX4J8GewDLkt17ebcWXdJcfEHf9vZxupOxjM3tr87WqS7uzSvgY4WtLcE12LnIuRdN25SOgx49yWADGYv1IvD9eHj_GlQDQj_xYHqaeJpA1euTXfWO99QDrCe09cpNCY3wJgiURvTxpOyhtDQGGfKmk8xIWdTWB9pl1sM2NhNxHxe9bTpHHLHeeGMQQ',
-			use: 'sig'
-		}
-	]
+export let Corbado = writable();
+
+faunaReady.subscribe((value) => {
+	console.log('faunaReady value updated:', value);
 });
 
-export const jwtVerify = async (jwt) => {
-	return await jose.jwtVerify(jwt, JWKS);
-};
-
-const parseCookies = (cookie: string) => {
-	return Object.fromEntries(
-		cookie.split(';').map((c) => {
-			const [key, ...v] = c.split('=');
-			return [key.trim(), v.join('=')];
-		})
-	);
-};
-
-export const getSession = async (cookies: RequestHandler.cookies | string) => {
-	let cbo_session;
-	if (typeof cookies === 'string') {
-		cookies = parseCookies(cookies);
-		cbo_session = cookies['cbo_short_session'];
+export const initializeSession = async () => {
+	if (get(SESSION)) {
+		console.log(get(SESSION));
+		return get(SESSION);
+	}
+	if (dev && false) {
+		USER.set({ email: 'local@user', session: true });
+		return false;
 	} else {
-		cbo_session = cookies.get('cbo_short_session');
-	}
+		let imp = await import('@corbado/web-js');
 
-	if (!cbo_session) {
-		return null;
-	}
-	return cbo_session;
-};
+		Corbado.set(imp.default);
+		await get(Corbado).load({ projectId: PUBLIC_CORBADO_PROJECT_ID });
 
-export const authVerify = async (cookies: RequestHandler.cookies | string) => {
-	let cbo_session;
-	if (typeof cookies === 'string') {
-		cookies = parseCookies(cookies);
-		cbo_session = cookies['cbo_short_session'];
-	} else {
-		cbo_session = cookies.get('cbo_short_session');
-	}
-	try {
-		if (!cbo_session) {
-			throw new Error('No session');
+		if (get(Corbado).isAuthenticated) {
+			USER.set({ email: get(Corbado).user.email, name: get(Corbado).user.name, session: true });
+			setFaunaClient(get(Corbado).shortSession).then((client) => {
+				client.query(fql`createOrGetUser()`);
+			});
 		}
-		return await jwtVerify(cbo_session);
-	} catch (e) {
-		throw new Error(e);
+
+		return get(Corbado);
+
+		// Corbado..refresh((user) => {
+		// 	if (!user) {
+		// 		console.log('No session found');
+		// 		USER.set({ session: false });
+		// 	} else {
+		// 		console.log('Session started');
+		// 		USER.set({ email: 'local@user', session: true, name: user.name });
+
+		// 		getSession(document.cookie)
+		// 			.then((session) => setFaunaClient(session))
+		// 			.then((client) => FAUNA.set(client));
+		// 	}
+		// });
 	}
+	// return false;
 };
+
+// export const faunaInitialize = new Promise((resolve, reject) => {
+
+// 		    let client = await fauna.Client(sess);
+// 		    resolve(client);
+// 		}
+// });
+
+// async function useFaunaClient() {
+//     await faunaClient; // Implicitly awaits if not initialized yet
+//     const res = await faunaClient.query(...);
+//     displayData(res);
+// }
 
 export const getFaunaClient = (secret: string) => {
 	return;
 };
 
 export const setFaunaClient = async (jwt) => {
-	const client = new Client({ secret: jwt, keepalive: false });
+	const client = new Client({ secret: jwt });
+	FAUNA.set(client);
+	faunaReady.set(true);
 	return client;
 };

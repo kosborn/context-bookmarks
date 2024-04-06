@@ -21,7 +21,6 @@ const getUserAuthenticators: Authenticator[] = (user) => {
 };
 
 export const GET: RequestHandler = async ({ url }) => {
-	console.log();
 	// (Pseudocode) Retrieve the user from the database
 	// after they've logged in
 	const user: UserModel = getUserFromDB(url.searchParams.get('userid'));
