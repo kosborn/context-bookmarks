@@ -1,0 +1,244 @@
+{
+  ".svelte-kit/generated/server/internal.js": {
+    "file": "internal.js",
+    "src": ".svelte-kit/generated/server/internal.js",
+    "isEntry": true,
+    "imports": [
+      "_internal.js",
+      "_shared-server.js"
+    ]
+  },
+  "_SvelteMarkdown.js": {
+    "file": "chunks/SvelteMarkdown.js",
+    "imports": [
+      "_index3.js",
+      "_github-markdown.js",
+      "_main-client.js"
+    ]
+  },
+  "_client.js": {
+    "file": "chunks/client.js",
+    "imports": [
+      "_exports.js"
+    ]
+  },
+  "_exports.js": {
+    "file": "chunks/exports.js"
+  },
+  "_github-markdown.js": {
+    "file": "chunks/github-markdown.js",
+    "imports": [
+      "_index4.js",
+      "_index3.js"
+    ],
+    "css": [
+      "_app/immutable/assets/github-markdown.CPi5pCS1.css"
+    ]
+  },
+  "_index.js": {
+    "file": "chunks/index.js"
+  },
+  "_index2.js": {
+    "file": "chunks/index2.js",
+    "imports": [
+      "_index4.js"
+    ]
+  },
+  "_index3.js": {
+    "file": "chunks/index3.js",
+    "imports": [
+      "_utils.js"
+    ]
+  },
+  "_index4.js": {
+    "file": "chunks/index4.js",
+    "imports": [
+      "_utils.js"
+    ]
+  },
+  "_internal.js": {
+    "file": "chunks/internal.js",
+    "imports": [
+      "_index3.js",
+      "_main-client.js",
+      "_shared-server.js"
+    ],
+    "dynamicImports": [
+      "src/hooks.server.ts"
+    ]
+  },
+  "_main-client.js": {
+    "file": "chunks/main-client.js",
+    "imports": [
+      "_index3.js"
+    ]
+  },
+  "_prod-ssr.js": {
+    "file": "chunks/prod-ssr.js"
+  },
+  "_shared-server.js": {
+    "file": "chunks/shared-server.js"
+  },
+  "_utils.js": {
+    "file": "chunks/utils.js"
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
+    "file": "entries/fallbacks/error.svelte.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index3.js",
+      "_main-client.js",
+      "_client.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/layout.svelte": {
+    "file": "entries/fallbacks/layout.svelte.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index3.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
+    "file": "index.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
+    "isEntry": true,
+    "imports": [
+      "_prod-ssr.js",
+      "_internal.js",
+      "_index.js",
+      "_exports.js",
+      "_index4.js",
+      "_shared-server.js"
+    ]
+  },
+  "src/hooks.server.ts": {
+    "file": "chunks/hooks.server.js",
+    "src": "src/hooks.server.ts",
+    "isDynamicEntry": true
+  },
+  "src/routes/(api)/+layout@.svelte": {
+    "file": "entries/pages/(api)/_layout@.svelte.js",
+    "src": "src/routes/(api)/+layout@.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index3.js"
+    ]
+  },
+  "src/routes/(api)/api/bookmarks/create/+server.ts": {
+    "file": "entries/endpoints/(api)/api/bookmarks/create/_server.ts.js",
+    "src": "src/routes/(api)/api/bookmarks/create/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_shared-server.js",
+      "_index.js"
+    ]
+  },
+  "src/routes/(api)/api/bookmarks/get_url/+server.ts": {
+    "file": "entries/endpoints/(api)/api/bookmarks/get_url/_server.ts.js",
+    "src": "src/routes/(api)/api/bookmarks/get_url/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_index2.js"
+    ]
+  },
+  "src/routes/(api)/api/localAuth/auth/+server.ts": {
+    "file": "entries/endpoints/(api)/api/localAuth/auth/_server.ts.js",
+    "src": "src/routes/(api)/api/localAuth/auth/+server.ts",
+    "isEntry": true
+  },
+  "src/routes/(api)/api/localAuth/register/+server.ts": {
+    "file": "entries/endpoints/(api)/api/localAuth/register/_server.ts.js",
+    "src": "src/routes/(api)/api/localAuth/register/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "src/routes/(api)/api/localAuth/verify/+server.ts": {
+    "file": "entries/endpoints/(api)/api/localAuth/verify/_server.ts.js",
+    "src": "src/routes/(api)/api/localAuth/verify/+server.ts",
+    "isEntry": true,
+    "imports": [
+      "_index.js"
+    ]
+  },
+  "src/routes/(main)/+layout.svelte": {
+    "file": "entries/pages/(main)/_layout.svelte.js",
+    "src": "src/routes/(main)/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index3.js",
+      "_github-markdown.js",
+      "_SvelteMarkdown.js",
+      "_index2.js",
+      "_prod-ssr.js",
+      "_index4.js",
+      "_main-client.js",
+      "_client.js",
+      "_index.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_layout.Cc-5hHDO.css"
+    ]
+  },
+  "src/routes/(main)/+page.server.ts": {
+    "file": "entries/pages/(main)/_page.server.ts.js",
+    "src": "src/routes/(main)/+page.server.ts",
+    "isEntry": true
+  },
+  "src/routes/(main)/+page.svelte": {
+    "file": "entries/pages/(main)/_page.svelte.js",
+    "src": "src/routes/(main)/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index3.js",
+      "_github-markdown.js"
+    ]
+  },
+  "src/routes/(main)/b/+page.svelte": {
+    "file": "entries/pages/(main)/b/_page.svelte.js",
+    "src": "src/routes/(main)/b/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index3.js"
+    ]
+  },
+  "src/routes/(main)/b/+page.ts": {
+    "file": "entries/pages/(main)/b/_page.ts.js",
+    "src": "src/routes/(main)/b/+page.ts",
+    "isEntry": true
+  },
+  "src/routes/(main)/b/[id]/+page.server.ts": {
+    "file": "entries/pages/(main)/b/_id_/_page.server.ts.js",
+    "src": "src/routes/(main)/b/[id]/+page.server.ts",
+    "isEntry": true
+  },
+  "src/routes/(main)/b/[id]/+page.svelte": {
+    "file": "entries/pages/(main)/b/_id_/_page.svelte.js",
+    "src": "src/routes/(main)/b/[id]/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index3.js",
+      "_client.js",
+      "_github-markdown.js",
+      "_SvelteMarkdown.js",
+      "_main-client.js",
+      "_index2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.DC0tRSs2.css"
+    ]
+  },
+  "src/routes/(main)/b/[id]/+page.ts": {
+    "file": "entries/pages/(main)/b/_id_/_page.ts.js",
+    "src": "src/routes/(main)/b/[id]/+page.ts",
+    "isEntry": true,
+    "imports": [
+      "_index2.js",
+      "_index4.js"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+import"../chunks/disclose-version.BDr9Qe-U.js";import{i as e,p as t,a}from"../chunks/runtime.PSreMutw.js";const r=Object.freeze(Object.defineProperty({__proto__:null},Symbol.toStringTag,{value:"Module"}));function n(i,o){a(o,!1),e(),t()}export{n as component,r as universal};

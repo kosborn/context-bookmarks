@@ -1,0 +1,29 @@
+{
+	"/(main)": [
+		"src/routes/(main)/+page.server.ts"
+	],
+	"/(api)": [],
+	"/": [],
+	"/(api)/api/bookmarks/create": [
+		"src/routes/(api)/api/bookmarks/create/+server.ts"
+	],
+	"/(api)/api/bookmarks/get_url": [
+		"src/routes/(api)/api/bookmarks/get_url/+server.ts"
+	],
+	"/(api)/api/localAuth/auth": [
+		"src/routes/(api)/api/localAuth/auth/+server.ts"
+	],
+	"/(api)/api/localAuth/register": [
+		"src/routes/(api)/api/localAuth/register/+server.ts"
+	],
+	"/(api)/api/localAuth/verify": [
+		"src/routes/(api)/api/localAuth/verify/+server.ts"
+	],
+	"/(main)/b": [
+		"src/routes/(main)/b/+page.ts"
+	],
+	"/(main)/b/[id]": [
+		"src/routes/(main)/b/[id]/+page.ts",
+		"src/routes/(main)/b/[id]/+page.server.ts"
+	]
+}
